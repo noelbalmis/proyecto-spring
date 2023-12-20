@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Mis Pedidos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 h-screen text-white">
+    <header th:replace="~{layouts/header::header}"></header>
+    <main class="flex flex-col justify-center items-center">
+        <div class="mt-12 h-fit rounded-lg p-8 border border-amber-400 bg-slate-950 w-3xl">
+            <a th:href="@{/}"><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'
+                    style='fill: rgba(255, 255, 255, 1);transform: msFilter'>
+                    <path d='M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z'>
+                    </path>
+                </svg></a>
+            <h1 class="text-3xl font-bold text-center mt-4">Mis pedidos</h1>
+            <table class="mt-8">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Fecha</th>
+                        <th class="px-4 py-2">Precio Total</th>
+                        <th class="px-4 py-2">Productos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td class="px-4 py-2 text-center">
+                            Fecha del pedido
+                        </td>
+                        <td th:text="${pedido.getPrecioTotalFormateado() + '€'}" class="px-4 py-2 text-center">
+                            Precio total del pedido
+                        </td>
+                        <td class="px-4 py-2">
+                            <ul>
+                                <li th:each="producto : ${pedido.getProductos()}">
+                                    <span th:text="'- ' + ${producto.nombre}">Nombre del producto</span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="px-4 py-2 text-center">
+                            <form th:action="@{/cancelorder}" method="post">
+                                <input type="hidden" name="id" th:value="${pedido.id}">
+                                <button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                                        style="fill: rgba(255, 255, 255, 1);transform: msFilter">
+                                        <path
+                                            d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

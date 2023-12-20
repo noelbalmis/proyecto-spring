@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona de Administrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 h-screen text-white">
+    <header th:replace="~{layouts/header::header}"></header>
+    <div class="flex flex-col justify-center items-center gap-4 mt-4">
+        <h1 class="text-3xl font-bold">Zona de administrador</h1>
+        <div class="flex flex-col gap-4 justify-center items-center">
+            <div class="mb-2 flex gap-2 justify-center">
+                <button id="crear-producto-tab"
+                    class="font-bold bg-amber-400 text-slate-950 py-2 px-4 rounded">Productos</button>
+                <button id="crear-categoria-tab"
+                    class="font-bold bg-gray-500 text-white py-2 px-4 rounded">Categorías</button>
+            </div>
+            <form id="crear-producto-form" th:action="@{/createproduct}" method="post" enctype="multipart/form-data">
+                <div class="flex justify-center gap-8">
+                    <div>
+                        <div class="mb-2 flex flex-col">
+                            <label for="nombre">Nombre del producto</label>
+                            <input class="rounded text-black" type="text" name="nombre" required>
+                        </div>
+                        <div class="mb-2 flex flex-col">
+                            <label for="precio">Precio del producto</label>
+                            <input class="rounded text-black" type="number" step="0.01" name="precioUnitario" required>
+                        </div>
+                        <div class="mb-2 flex flex-col">
+                            <label for="imagen">Subir imagen</label>
+                            <input class="rounded" type="file" name="imagen" accept="image/*">
+                        </div>
+                        <div class="mb-2 flex flex-col">
+                            <label for="descripcion">Descripción del producto</label>
+                            <textarea class="rounded text-black" name="descripcion"></textarea>
+                        </div>
+                        <div class="mb-2 flex flex-col">
+                            <label class="rounded" for="categoria">Categoría</label>
+                            <select id="categoria" name="categoria"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                                <option th:each="categoria : ${categorias}" th:value="${categoria.nombre}"
+                                    th:text="${categoria.nombre}"></option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                            class="hover-bg-amber-500 bg-amber-400 text-slate-950 font-bold py-2 px-4 rounded w-full">Crear</button>
+                    </div>
+            </form>
+            <div>
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr>
+                            <th class="text-left px-4 py-1">Nombre del producto</th>
+                            <th class="text-left px-4 py-1">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="producto : ${productos}">
+                            <td th:text="${producto.nombre}" class='px-4 py-1'>Nombre</td>
+                            <td th:text="${producto.precioUnitario} + '€'" class='px-4 py-1'>Precio</td>
+                            <td class='px-4 py-1'>
+                                <form th:action="@{/deleteproduct}" method="post">
+                                    <input type="hidden" name="id" th:value="${producto.id}">
+                                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                            viewBox="0 0 24 24"
+                                            style="fill: rgba(255, 255, 255, 1); transform: msFilter;">
+                                            <path
+                                                d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z">
+                                            </path>
+                                        </svg></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form id="crear-categoria-form" th:action="@{/createcategory}" class="hidden" action="" method="post">
+            <div class="flex justify-center gap-8">
+                <div>
+                    <div class="mb-2 flex flex-col">
+                        <label for="categoria">Nombre de la categoría</label>
+                        <input class="rounded text-black" type="text" name="nombreCategoria" required>
+                    </div>
+                    <button type="submit"
+                        class="hover:bg-amber-500 bg-amber-400 text-slate-950 font-semibold py-2 px-4 rounded w-full">Crear</button>
+                </div>
+        </form>
+        <div>
+            <table class="w-full table-auto">
+                <thead>
+                    <tr>
+                        <th class="text-left px-4 py-1">Categoría</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="categoria : ${categorias}" >
+                        <td th:text="${categoria.nombre}" class='px-4 py-1'>Categoría</td>
+                        <td class="px-4 py-1">
+                            <form th:action="@{/deletecategory}" method="post">
+                                <input type="hidden" name="id" th:value="${categoria.id}">
+                                <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                        viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: msFilter;">
+                                        <path
+                                            d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
+
+    <script>
+        const crearProductoTab = document.getElementById('crear-producto-tab');
+        const crearCategoriaTab = document.getElementById('crear-categoria-tab');
+        const crearProductoForm = document.getElementById('crear-producto-form');
+        const crearCategoriaForm = document.getElementById('crear-categoria-form');
+
+        crearProductoTab.addEventListener('click', function () {
+            crearProductoForm.style.display = 'block';
+            crearCategoriaForm.style.display = 'none';
+            crearProductoTab.classList.add("bg-amber-400");
+            crearProductoTab.classList.remove("bg-gray-500");
+            crearCategoriaTab.classList.remove("bg-amber-400");
+            crearCategoriaTab.classList.add("bg-gray-500");
+            crearProductoTab.classList.remove("text-white");
+            crearProductoTab.classList.add("text-slate-950");
+            crearCategoriaTab.classList.remove("text-slate-950");
+            crearCategoriaTab.classList.add("text-white");
+        });
+
+        crearCategoriaTab.addEventListener('click', function () {
+            crearProductoForm.style.display = 'none';
+            crearCategoriaForm.style.display = 'block';
+            crearCategoriaTab.classList.add("bg-amber-400");
+            crearCategoriaTab.classList.remove("bg-gray-500");
+            crearProductoTab.classList.remove("bg-amber-400");
+            crearProductoTab.classList.add("bg-gray-500");
+            crearCategoriaTab.classList.remove("text-white");
+            crearCategoriaTab.classList.add("text-slate-950");
+            crearProductoTab.classList.remove("text-slate-950");
+            crearProductoTab.classList.add("text-white");
+        });
+
+        crearProductoForm.style.display = 'block';
+        crearCategoriaForm.style.display = 'none';
+        crearProductoTab.classList.add("bg-amber-400");
+    </script>
+
+
+</body>
+
+</html>

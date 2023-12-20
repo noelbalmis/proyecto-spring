@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Principal</title>
+</head>
+
+<body class="bg-slate-900 h-screen text-white">
+  <header th:replace="~{layouts/header::header}"></header>
+  <h1 class="mt-12 text-4xl text-amber-400 font-bold text-center">
+    Saca tu fucking bestia
+  </h1>
+  <nav class="mt-4">
+    <form method="POST" th:action="@{/}" class="flex items-center justify-center gap-2">
+      <div class="w-40">
+        <select name="categoria"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+          <option th:value="todas" th:selected="${categoriaSeleccionada == 'todas'}">
+            Todas las categorías
+          </option>
+          <option th:each="categoria : ${categorias}" th:value="${categoria.nombre}" th:text="${categoria.nombre}"
+            th:selected="${categoriaSeleccionada == categoria.nombre}"></option>
+        </select>
+      </div>
+      <div class="w-22">
+        <select name="precio"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+          <option th:value="asc" th:selected="${filtroPrecioSeleccionado} == 'asc'">Precio ↑</option>
+          <option th:value="desc" th:selected="${filtroPrecioSeleccionado} == 'desc'">Precio ↓</option>
+        </select>
+      </div>
+      <div>
+        <input class="p-2 rounded text-black" name="busqueda" type="text" placeholder="Buscar" />
+      </div>
+      <button class="rounded py-2 px-4 bg-amber-400" type="submit">
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/right--v1.png" alt="right--v1" />
+      </button>
+    </form>
+  </nav>
+  <main id="productos" class="flex flex-wrap mt-14 gap-4 justify-center">
+    <a th:each="producto : ${productos}"
+      th:href="@{/product/{id}(id = ${producto.id})}"
+      class="cursor-pointer border border-amber-400 rounded-xl w-[300px] bg-slate-950">
+      <img th:src="@{${producto.imagen}}" class="rounded-t-xl" alt="Imagen" />
+      <div class="flex flex-col p-4">
+        <h1 class="text-2xl font-bold" th:text="${producto.nombre}"></h1>
+        <p class="text-xl font-bold" th:text="${producto.precioUnitario} + '€'"></p>
+      </div>
+    </a>
+  </main>
+</body>
+
+</html>

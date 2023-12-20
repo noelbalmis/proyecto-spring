@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Detalles del Producto</title>
+</head>
+
+<body class="bg-slate-900 h-screen text-white">
+    <header th:replace="~{layouts/header::header}"></header>
+    <form method="POST" th:action="@{/addtocart/{id}(id=${producto.id})}" class='bg-slate-950 border border-amber-400 py-4 px-6 rounded-lg flex flex-col gap-4 mx-auto mt-6 w-1/2'>
+
+        <a th:href="@{/}">
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'
+                style='fill: rgba(255, 255, 255, 1);transform: msFilter'>
+                <path d='M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z'>
+                </path>
+            </svg>
+        </a>
+
+        <h1 class='text-3xl text-amber-400 font-bold text-center' th:if="${producto != null}"
+            th:text="${producto.nombre}"></h1>
+        <img th:if="${producto != null}" th:src="${producto.imagen}" alt='Imagen del producto'
+            class='w-64 mx-auto mt-4 rounded-lg'>
+        <p th:if="${producto != null}" th:text="${producto.descripcion}">Descripción del producto</p>
+        <p class='text-xl font-bold text-right' th:if="${producto != null}" th:text="${producto.precioUnitario} + '€'">
+        </p>
+
+        <div th:unless="${producto != null}" class="text-red-500 font-bold">Producto no encontrado</div>
+
+        <button type="submit" th:if="${producto != null}"
+            class='hover:bg-amber-500 rounded py-2 px-4 bg-amber-400 font-bold text-slate-950 text-center'>Añadir al
+            carrito</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Register</title>
+</head>
+
+<body class="flex flex-col justify-center items-center h-screen bg-slate-900">
+    <div class="w-full max-w-xl shadow-lg">
+        <form th:action="@{/register}" th:object="${usuario}"
+            class="flex flex-col items-center gap-8 bg-white shadow-md rounded-lg p-4" method="post">
+            <a class="w-full text-left" th:href="@{/login}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    style="fill: rgba(15, 23, 42, 1);transform: msFilter">
+                    <path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"></path>
+                </svg>
+            </a>
+            <h1 class="text-center mb-6 text-4xl font-extrabold leading-none tracking-tight text-slate-900">Registrarse
+            </h1>
+            <div class="flex justify-center gap-12">
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                            Email
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{email}" id="email" name="email" type="email">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="clave">
+                            Contraseña
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{clave}" id="clave" name="clave" type="password">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="apellidos">
+                            DNI
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{dni}" id="dni" name="dni" type="text" maxlength="9">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="rol">
+                            Rol
+                        </label>
+                        <select th:field="*{rol}" id="rol" name="rol"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="usuario" selected>Usuario</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">
+                            Nombre
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{nombre}" id="nombre" name="nombre" type="text">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="apellidos">
+                            Apellidos
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{apellidos}" id="apellidos" name="apellidos" type="text">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="apellidos">
+                            Dirección
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{direccion}" id="direccion" name="direccion" type="text">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="apellidos">
+                            Número de teléfono
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            th:field="*{telefono}" id="telefono" name="telefono" type="tel">
+                    </div>
+                </div>
+            </div>
+            <button
+                class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Crear cuenta
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>

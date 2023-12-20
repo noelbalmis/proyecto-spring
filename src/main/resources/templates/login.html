@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login</title>
+
+</head>
+
+<body class="flex flex-col justify-center items-center h-screen bg-slate-900">
+    <div class="w-full max-w-xs shadow-lg">
+        <form th:action="@{/login}" class="bg-white shadow-md rounded-lg p-12" method="post">
+            <img class="mb-12" src="images/logologin.png" alt="logo">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="email" name="username" type="text">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="clave">
+                    Contraseña
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="clave" name="password" type="password">
+            </div>
+            <div class="flex items-center justify-center mb-20">
+                <button
+                    class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Entrar
+                </button>
+            </div>
+            <div class="flex items-center justify-center">
+                <a class="font-bold text-slate-900" th:href="@{/register}">¿No tienes cuenta?</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
