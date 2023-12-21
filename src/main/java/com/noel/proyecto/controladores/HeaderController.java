@@ -26,6 +26,7 @@ public class HeaderController {
             model.addAttribute("nombreUsuario", usuarioServicio.buscarPorEmail(principal.getName()).getNombre());
             model.addAttribute("numeroProductosEnCarrito", carritoServicio
                     .getNumeroProductos(usuarioServicio.buscarPorEmail(principal.getName()).getCarritoActivo()));
+            model.addAttribute("numeroPedidos", carritoServicio.obtenerCarritosPorEstado("pedido").size());
         }
     }
 

@@ -16,7 +16,11 @@
                     </path>
                 </svg></a>
             <h1 class="text-3xl font-bold text-center mt-4">Mis pedidos</h1>
-            <table class="mt-8">
+            <div th:if="${pedidos.isEmpty()}" class="flex flex-col gap-4 items-center">
+                <p class="text-center mt-4 text-gray-500">No hay pedidos disponibles</p>
+                <img class="rounded-lg w-[200px]" src="/images/error.png" alt="error">
+            </div>
+            <table th:if="${not pedidos.isEmpty()}" class="mt-8">
                 <thead>
                     <tr>
                         <th class="px-4 py-2">Fecha</th>
