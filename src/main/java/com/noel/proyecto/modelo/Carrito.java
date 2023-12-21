@@ -2,6 +2,8 @@ package com.noel.proyecto.modelo;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,6 +31,8 @@ public class Carrito {
 
     private String estado;
 
+    private LocalDateTime fecha;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +55,15 @@ public class Carrito {
 
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
+    }
+
+    public String getFecha() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return fecha.format(formatter);
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     public Carrito() {
@@ -103,6 +116,5 @@ public class Carrito {
     public String toString() {
         return "Carrito [id=" + id + ", usuario=" + usuario.getId() + ", productos=" + productos + "]";
     }
-    
 
 }

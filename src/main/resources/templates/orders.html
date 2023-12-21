@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="pedido : ${pedidos}">
-                        <td class="px-4 py-2 text-center">
+                        <td th:text="${pedido.getFecha()}" class="px-4 py-2 text-center">
                             Fecha del pedido
                         </td>
                         <td th:text="${pedido.getPrecioTotalFormateado() + '€'}" class="px-4 py-2 text-center">

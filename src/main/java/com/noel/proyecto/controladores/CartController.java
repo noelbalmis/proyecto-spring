@@ -57,14 +57,4 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/makeorder")
-    public String creaPedido(Principal principal) {
-        Usuario usuario = usuarioServicio.buscarPorEmail(principal.getName());
-        usuario.getCarritoActivo().setEstado("pedido");
-        usuarioServicio.creaCarritoActivo(usuario);
-
-        usuarioServicio.guardaCambios(usuario);
-        return "redirect:/orders";
-    }
-
 }
